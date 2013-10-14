@@ -1,0 +1,16 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.4.0",
+    "jade": "*",
+    "coffee-script": "~1.6.3"
+  },
+  "devDependencies": {
+    "node-dev": "~2.0.2",
+    "mocha": "~1.13.0",
+    "request": "~2.27.0",
+    "libxmljs": "~0.8.1"
+  }
+}
