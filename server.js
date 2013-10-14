@@ -3,7 +3,11 @@
  * Module dependencies.
  */
 require('coffee-script');
-var express = require('express');
+
+var express    = require('express'),
+    RedisStore = require('connect-redis')(express),
+    flash      = require('connect-flash');
+
 var http = require('http');
 var path = require('path');
 
@@ -17,6 +21,13 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+app.use(express.cookieParser());
+app.use(express.session({
+  secret: 'sdfksdfjkh3j4khr3j4hjkadhkjHK47767JHKJh8787*&*&',
+  store: new RedisStore()
+}));
+app.use(flash());
+require('./apps/helpers')(app);
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -32,6 +43,6 @@ if ('test' == app.get('env')) {
 
 require('./apps/authentication/routes')(app);
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+http.createServer(app).listen(app.settings.port, function(){
+  console.log('Express server listening on port ' + app.settings.port);
 });
